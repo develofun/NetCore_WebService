@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -18,12 +17,10 @@ namespace NetCore_WebService.Controllers
         };
 
         private readonly ILogger<HomeController> _logger;
-        private readonly string _connStr;
 
-        public HomeController(ILogger<HomeController> logger, IOptions<AppSettings> settings)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _connStr = settings.Value.ConnectionString;
         }
 
         [HttpGet]
