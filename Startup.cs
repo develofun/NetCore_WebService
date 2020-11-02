@@ -21,6 +21,15 @@ namespace NetCore_WebService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builders =>
+                    {
+                        builders.WithOrigins("http://localhost");
+                    });
+            });
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
@@ -43,6 +52,13 @@ namespace NetCore_WebService
 
             //app.UseHttpsRedirection();
             //app.UseAuthorization();
+
+            // global cors policy
+            app.UseCors(x => x
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .SetIsOriginAllowed(_ => true)
+                .AllowCredentials());
 
             app.UseRouting();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
